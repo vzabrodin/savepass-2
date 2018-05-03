@@ -26,6 +26,7 @@
 			</Style.Triggers>
 		</Style>
 	</UserControl.Resources>
+
 	<md:DialogHost Identifier="MainDialog">
 		<md:DrawerHost>
 			<Grid>
@@ -69,13 +70,20 @@
 									</MenuItem>
 								</ContextMenu>
 							</ListBox.ContextMenu>
+
 							<ListBox.ItemContainerStyle>
 								<Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
 									<Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
 									<Setter Property="ContextMenu">
 										<Setter.Value>
 											<ContextMenu>
-												<MenuItem Header="{x:Static properties:Captions.EditEntry}"
+											    <MenuItem Header="{x:Static properties:Captions.AddEntry}"
+											              Command="{Binding PlacementTarget.Tag.AddItemCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
+											        <MenuItem.Icon>
+											            <md:PackIcon Kind="AccountPlus"/>
+											        </MenuItem.Icon>
+											    </MenuItem>
+                                                <MenuItem Header="{x:Static properties:Captions.EditEntry}"
 												          Command="{Binding PlacementTarget.Tag.EditItemCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
 													<MenuItem.Icon>
 														<md:PackIcon Kind="AccountKey"/>

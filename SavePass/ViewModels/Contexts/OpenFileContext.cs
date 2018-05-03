@@ -1,28 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
-using SavePass.DialogService;
-using SavePass.Validation;
+﻿using SavePass.DialogService;
 
 namespace SavePass.ViewModels.Contexts
 {
     public class OpenFileContext : Confirmation
     {
-        private string newFilePath;
-        private string openFilePath;
+        private string filePath;
         private string password;
-        private bool checkFileExists;
+        private bool isSave;
+        private bool showPassword;
 
-        [Required(ErrorMessage = "Field is required")]
-        public string NewFilePath
+        public string FilePath
         {
-            get => newFilePath;
-            set => SetProperty(ref newFilePath, value);
-        }
-
-        [FileExistsValidation(ErrorMessage = "File is not exists")]
-        public string OpenFilePath
-        {
-            get => openFilePath;
-            set => SetProperty(ref openFilePath, value);
+            get => filePath;
+            set => SetProperty(ref filePath, value);
         }
 
         public string Password
@@ -31,10 +21,16 @@ namespace SavePass.ViewModels.Contexts
             set => SetProperty(ref password, value);
         }
 
-        public bool CheckFileExists
+        public bool IsSave
         {
-            get => checkFileExists;
-            set => SetProperty(ref checkFileExists, value);
+            get => isSave;
+            set => SetProperty(ref isSave, value);
+        }
+
+        public bool ShowPassword
+        {
+            get => showPassword;
+            set => SetProperty(ref showPassword, value);
         }
     }
 }

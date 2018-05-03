@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -17,7 +18,7 @@ namespace SavePass.Security
             this.keySize = keySize;
             this.blockSize = blockSize;
 
-            using (Rfc2898DeriveBytes rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, salt))
+            using (Rfc2898DeriveBytes rfc2898DeriveBytes = new Rfc2898DeriveBytes(password ?? String.Empty, salt))
             {
                 Key = rfc2898DeriveBytes.GetBytes(keySize / 8);
                 IV = rfc2898DeriveBytes.GetBytes(blockSize / 8);

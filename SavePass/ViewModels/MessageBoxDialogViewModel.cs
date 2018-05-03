@@ -34,7 +34,7 @@ namespace SavePass.ViewModels
 
         private void OnOKCommand()
         {
-            Parameter.Result = MessageBoxResult.No;
+            Parameter.Result = MessageBoxResult.OK;
             Close();
         }
 

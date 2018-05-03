@@ -28,11 +28,11 @@
 					<TextBox.Style>
 						<Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
 							<Style.Triggers>
-								<DataTrigger Binding="{Binding Parameter.CheckFileExists}" Value="True">
-									<Setter Property="Text" Value="{Binding Parameter.OpenFilePath, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
+								<DataTrigger Binding="{Binding Parameter.IsSave}" Value="False">
+									<Setter Property="Text" Value="{Binding OpenFilePath, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
 								</DataTrigger>
-								<DataTrigger Binding="{Binding Parameter.CheckFileExists}" Value="False">
-									<Setter Property="Text" Value="{Binding Parameter.NewFilePath, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+								<DataTrigger Binding="{Binding Parameter.IsSave}" Value="True">
+									<Setter Property="Text" Value="{Binding NewFilePath, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
 								</DataTrigger>
 							</Style.Triggers>
 						</Style>
@@ -77,9 +77,9 @@
 					</TextBox.Style>
 				</TextBox>
 
-				<ToggleButton x:Name="ShowPasswordToggleButton" Grid.Column="1" Style="{DynamicResource MaterialDesignActionToggleButton}"
-				              ToolTip="{x:Static properties:Captions.ShowPassword}">
-					<ToggleButton.Content>
+                <ToggleButton x:Name="ShowPasswordToggleButton" Grid.Column="1" Style="{DynamicResource MaterialDesignActionToggleButton}"
+				              ToolTip="{x:Static properties:Captions.ShowPassword}" IsChecked="{Binding Parameter.ShowPassword}">
+                    <ToggleButton.Content>
 						<md:PackIcon Kind="Eye"/>
 					</ToggleButton.Content>
 					<md:ToggleButtonAssist.OnContent>

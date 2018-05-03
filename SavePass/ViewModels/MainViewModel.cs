@@ -181,11 +181,11 @@ namespace SavePass.ViewModels
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
-            if (result == MessageBoxResult.Yes)
-            {
-                Repository.Remove(SelectedItem);
-                SelectedItem = null;
-            }
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            Repository.Remove(SelectedItem);
+            SelectedItem = null;
         }
 
         #endregion
@@ -228,36 +228,34 @@ namespace SavePass.ViewModels
 
         #region Private methods
 
-        private async Task OpenFile(string filepath = null, string password = null)
+        private async Task OpenFile(OpenFileContext context = null)
         {
-            var context = await dialogService.Show(ViewNames.OpenFileDialogView,
-                new OpenFileContext
+            context = await dialogService.Show(ViewNames.OpenFileDialogView,
+                context ?? new OpenFileContext
                 {
                     Title = Captions.OpenFile,
-                    OpenFilePath = filepath,
-                    CheckFileExists = true,
-                    Password = password
+                    IsSave = false
                 });
             if (!context.Confirmed)
                 return;
 
             try
             {
-                Repository = SavePassRepository.FromFile(context.OpenFilePath, context.Password);
+                Repository = SavePassRepository.FromFile(context.FilePath, context.Password);
             }
             catch (IOException ex)
             {
                 Repository = null;
                 await dialogService.ShowMessageBox(ex.Message, Captions.Error,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
-                await OpenFile(context.OpenFilePath, context.Password);
+                await OpenFile(context);
             }
             catch (CryptographicException)
             {
                 Repository = null;
                 await dialogService.ShowMessageBox(Captions.WrongPassword, Captions.Error,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
-                await OpenFile(context.OpenFilePath, context.Password);
+                await OpenFile(context);
             }
         }
 
@@ -276,13 +274,13 @@ namespace SavePass.ViewModels
                 new OpenFileContext
                 {
                     Title = Captions.SaveAsEllipsis,
-                    CheckFileExists = false
+                    IsSave = true
                 });
             if (!context.Confirmed)
                 return false;
 
             Repository.SetPassword(context.Password);
-            Repository.Save(context.NewFilePath);
+            Repository.Save(context.FilePath);
 
             return true;
         }
