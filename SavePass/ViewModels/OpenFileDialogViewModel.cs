@@ -50,7 +50,8 @@ namespace SavePass.ViewModels
             NewFilePath = OpenFilePath = Parameter.FilePath;
         }
 
-        protected override bool OnCanExecuteApplyCommand() => File.Exists(GetFilePath());
+        protected override bool OnCanExecuteApplyCommand()
+            => (Parameter?.IsSave ?? false) || File.Exists(GetFilePath());
 
         protected override void OnApplyCommand()
         {
@@ -64,13 +65,13 @@ namespace SavePass.ViewModels
                 ? (FileDialog) new SaveFileDialog
                 {
                     Title = Parameter.Title,
-                    CheckFileExists = Parameter.IsSave,
+                    OverwritePrompt = true,
                     Filter = "SavePass file (*.savepass)|*.savepass|All (*.*)|*.*"
                 }
                 : new OpenFileDialog
                 {
                     Title = Parameter.Title,
-                    CheckFileExists = Parameter.IsSave,
+                    CheckFileExists = true,
                     Filter = "SavePass file (*.savepass)|*.savepass|All (*.*)|*.*"
                 };
 

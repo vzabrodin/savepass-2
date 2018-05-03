@@ -35,7 +35,7 @@
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
 
-				<Grid Grid.Row="1" Background="Black" Opacity="0.25" ZIndex="1">
+				<Grid Grid.Row="1" Background="Black" Opacity="0.15" ZIndex="1">
 					<Grid.Style>
 						<Style TargetType="Grid">
 							<Setter Property="Visibility" Value="Collapsed"/>
@@ -59,48 +59,46 @@
 					</Grid.RowDefinitions>
 
 					<md:Card VerticalAlignment="Stretch" Margin="8 8 4 8" Grid.Column="0" Grid.Row="0">
-						<ListBox ItemsSource="{Binding Repository.Items}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedItem}">
-							<ListBox.ContextMenu>
-								<ContextMenu>
-									<MenuItem Header="{x:Static properties:Captions.AddEntry}"
-									          Command="{Binding AddItemCommand}">
-										<MenuItem.Icon>
-											<md:PackIcon Kind="AccountPlus"/>
-										</MenuItem.Icon>
-									</MenuItem>
-								</ContextMenu>
-							</ListBox.ContextMenu>
+						<Grid>
+							<ListBox ItemsSource="{Binding Repository.Items}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedItem}">
+								<ListBox.ContextMenu>
+									<ContextMenu>
+										<MenuItem Header="{x:Static properties:Captions.AddEntry}" Icon="{md:PackIcon Plus}"
+										          Command="{Binding AddItemCommand}"/>
+									</ContextMenu>
+								</ListBox.ContextMenu>
 
-							<ListBox.ItemContainerStyle>
-								<Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-									<Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
-									<Setter Property="ContextMenu">
-										<Setter.Value>
-											<ContextMenu>
-											    <MenuItem Header="{x:Static properties:Captions.AddEntry}"
-											              Command="{Binding PlacementTarget.Tag.AddItemCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
-											        <MenuItem.Icon>
-											            <md:PackIcon Kind="AccountPlus"/>
-											        </MenuItem.Icon>
-											    </MenuItem>
-                                                <MenuItem Header="{x:Static properties:Captions.EditEntry}"
-												          Command="{Binding PlacementTarget.Tag.EditItemCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
-													<MenuItem.Icon>
-														<md:PackIcon Kind="AccountKey"/>
-													</MenuItem.Icon>
-												</MenuItem>
-												<MenuItem Header="{x:Static properties:Captions.RemoveEntry}"
-												          Command="{Binding PlacementTarget.Tag.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
-													<MenuItem.Icon>
-														<md:PackIcon Kind="AccountRemove"/>
-													</MenuItem.Icon>
-												</MenuItem>
-											</ContextMenu>
-										</Setter.Value>
-									</Setter>
-								</Style>
-							</ListBox.ItemContainerStyle>
-						</ListBox>
+								<ListBox.ItemContainerStyle>
+									<Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+										<Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
+										<Setter Property="ContextMenu">
+											<Setter.Value>
+												<ContextMenu>
+													<MenuItem Header="{x:Static properties:Captions.AddEntry}" Icon="{md:PackIcon Plus}"
+													          Command="{Binding PlacementTarget.Tag.AddItemCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+													<MenuItem Header="{x:Static properties:Captions.EditEntry}" Icon="{md:PackIcon Pencil}"
+													          Command="{Binding PlacementTarget.Tag.EditItemCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+													<MenuItem Header="{x:Static properties:Captions.RemoveEntry}" Icon="{md:PackIcon Delete}"
+													          Command="{Binding PlacementTarget.Tag.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+												</ContextMenu>
+											</Setter.Value>
+										</Setter>
+									</Style>
+								</ListBox.ItemContainerStyle>
+							</ListBox>
+
+							<md:PopupBox Margin="8" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+							             Style="{DynamicResource MaterialDesignMultiFloatingActionPopupBox}">
+								<StackPanel>
+									<Button ToolTip="{x:Static properties:Captions.RemoveEntry}" Content="{md:PackIcon Delete}"
+									        Command="{Binding RemoveItemCommand}"/>
+									<Button ToolTip="{x:Static properties:Captions.EditEntry}" Content="{md:PackIcon Pencil}"
+									        Command="{Binding EditItemCommand}"/>
+									<Button ToolTip="{x:Static properties:Captions.AddEntry}" Content="{md:PackIcon Plus}"
+									        Command="{Binding AddItemCommand}"/>
+								</StackPanel>
+							</md:PopupBox>
+						</Grid>
 					</md:Card>
 
 					<md:Card VerticalAlignment="Stretch" Margin="4 8 8 8" Grid.Column="1" Grid.Row="0">
@@ -149,9 +147,9 @@
 								</Grid.ColumnDefinitions>
 
 								<Button Margin="4 4 8 4" Grid.Column="0" HorizontalContentAlignment="Left"
-							        ToolTip="{x:Static properties:Captions.CopyToClipboard}"
-							        Style="{DynamicResource ToolTipButtonStyle}"
-							        Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding SelectedItem.Password}">
+								        ToolTip="{x:Static properties:Captions.CopyToClipboard}"
+								        Style="{DynamicResource ToolTipButtonStyle}"
+								        Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding SelectedItem.Password}">
 									<Button.Content>
 										<Grid>
 											<PasswordBox IsHitTestVisible="False" ui:PasswordBoxExtensions.Attach="True" BorderThickness="0" ContextMenu="{x:Null}"
@@ -184,15 +182,10 @@
 									</Button.Content>
 								</Button>
 
-								<ToggleButton Margin="0 0 4 0" x:Name="ShowPasswordToggleButton" Grid.Column="1" Style="{DynamicResource MaterialDesignActionToggleButton}"
-								              ToolTip="{x:Static properties:Captions.ShowPassword}">
-									<ToggleButton.Content>
-										<md:PackIcon Kind="Eye"/>
-									</ToggleButton.Content>
-									<md:ToggleButtonAssist.OnContent>
-										<md:PackIcon Kind="EyeOff"/>
-									</md:ToggleButtonAssist.OnContent>
-								</ToggleButton>
+								<ToggleButton Grid.Column="1" Margin="0 0 4 0" x:Name="ShowPasswordToggleButton"
+											  Content="{md:PackIcon Eye}" md:ToggleButtonAssist.OnContent="{md:PackIcon EyeOff}"
+								              Style="{DynamicResource MaterialDesignActionToggleButton}"
+								              ToolTip="{x:Static properties:Captions.ShowPassword}"/>
 							</Grid>
 
 							<TextBlock Margin="8 4 0 4" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center"
@@ -239,79 +232,35 @@
 
 				<Menu Grid.Row="0">
 					<MenuItem Header="{x:Static properties:Captions.File}">
-						<MenuItem Header="{x:Static properties:Captions.NewEllipsis}"
-						          Command="{Binding NewFileCommand}">
-							<MenuItem.Icon>
-								<md:PackIcon Kind="PlusBox"/>
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="{x:Static properties:Captions.OpenEllipsis}"
-						          Command="{Binding OpenFileCommand}">
-							<MenuItem.Icon>
-								<md:PackIcon Kind="Folder"/>
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="{x:Static properties:Captions.Close}"
-						          Command="{Binding CloseFileCommand}">
-							<MenuItem.Icon>
-								<md:PackIcon Kind="CloseBox"/>
-							</MenuItem.Icon>
-						</MenuItem>
+						<MenuItem Header="{x:Static properties:Captions.NewEllipsis}" Icon="{md:PackIcon Plus}"
+						          Command="{Binding NewFileCommand}"/>
+						<MenuItem Header="{x:Static properties:Captions.OpenEllipsis}" Icon="{md:PackIcon OpenInNew}"
+						          Command="{Binding OpenFileCommand}"/>
+						<MenuItem Header="{x:Static properties:Captions.Close}" Icon="{md:PackIcon Close}"
+						          Command="{Binding CloseFileCommand}"/>
 						<Separator/>
-						<MenuItem Header="{x:Static properties:Captions.Save}"
-						          Command="{Binding SaveFileCommand}">
-							<MenuItem.Icon>
-								<md:PackIcon Kind="ContentSave"/>
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="{x:Static properties:Captions.SaveAsEllipsis}"
-						          Command="{Binding SaveFileAsCommand}">
-							<MenuItem.Icon>
-								<md:PackIcon Kind="ContentSave"/>
-							</MenuItem.Icon>
-						</MenuItem>
+						<MenuItem Header="{x:Static properties:Captions.Save}" Icon="{md:PackIcon ContentSave}"
+						          Command="{Binding SaveFileCommand}"/>
+						<MenuItem Header="{x:Static properties:Captions.SaveAsEllipsis}" Icon="{md:PackIcon ContentSave}"
+						          Command="{Binding SaveFileAsCommand}"/>
 						<Separator/>
-						<MenuItem Header="{x:Static properties:Captions.ChangePassword}"
-						          Command="{Binding FileSettingsCommand}">
-							<MenuItem.Icon>
-								<md:PackIcon Kind="Settings"/>
-							</MenuItem.Icon>
-						</MenuItem>
+						<MenuItem Header="{x:Static properties:Captions.ChangePassword}" Icon="{md:PackIcon Settings}"
+						          Command="{Binding FileSettingsCommand}"/>
 						<Separator/>
-						<MenuItem Header="{x:Static properties:Captions.Exit}"
-						          Command="{Binding ExitCommand}">
-							<MenuItem.Icon>
-								<md:PackIcon Kind="ExitToApp"/>
-							</MenuItem.Icon>
-						</MenuItem>
+						<MenuItem Header="{x:Static properties:Captions.Exit}" Icon="{md:PackIcon ExitToApp}"
+						          Command="{Binding ExitCommand}"/>
 					</MenuItem>
 					<MenuItem Header="{x:Static properties:Captions.Edit}">
-						<MenuItem Header="{x:Static properties:Captions.AddEntry}"
-						          Command="{Binding AddItemCommand}">
-							<MenuItem.Icon>
-								<md:PackIcon Kind="AccountPlus"/>
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="{x:Static properties:Captions.EditEntry}"
-						          Command="{Binding EditItemCommand}">
-							<MenuItem.Icon>
-								<md:PackIcon Kind="AccountKey"/>
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="{x:Static properties:Captions.RemoveEntry}"
-						          Command="{Binding RemoveItemCommand}">
-							<MenuItem.Icon>
-								<md:PackIcon Kind="AccountRemove"/>
-							</MenuItem.Icon>
-						</MenuItem>
+						<MenuItem Header="{x:Static properties:Captions.AddEntry}" Icon="{md:PackIcon Plus}"
+						          Command="{Binding AddItemCommand}"/>
+						<MenuItem Header="{x:Static properties:Captions.EditEntry}" Icon="{md:PackIcon Pencil}"
+						          Command="{Binding EditItemCommand}"/>
+						<MenuItem Header="{x:Static properties:Captions.RemoveEntry}" Icon="{md:PackIcon Delete}"
+						          Command="{Binding RemoveItemCommand}"/>
 					</MenuItem>
 					<MenuItem Header="{x:Static properties:Captions.Help}">
-						<MenuItem Header="{x:Static properties:Captions.AboutEllipsis}"
-						          Command="{Binding AboutCommand}">
-							<MenuItem.Icon>
-								<md:PackIcon Kind="HelpCircle"/>
-							</MenuItem.Icon>
-						</MenuItem>
+						<MenuItem Header="{x:Static properties:Captions.AboutEllipsis}" Icon="{md:PackIcon HelpCircleOutline}"
+						          Command="{Binding AboutCommand}"/>
 					</MenuItem>
 				</Menu>
 			</Grid>
