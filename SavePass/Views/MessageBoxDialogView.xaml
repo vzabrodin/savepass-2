@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="SavePass.Views.MessageBoxDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:properties="clr-namespace:SavePass.Properties"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" MinWidth="400"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+             TextElement.FontSize="14"
+             TextElement.FontWeight="Medium">
+	<Grid>
+		<StackPanel Margin="16">
+			<TextBlock Margin="4" Style="{DynamicResource MaterialDesignTitleTextBlock}" TextTrimming="CharacterEllipsis" Text="{Binding Parameter.Title}"/>
+			<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+				<Viewbox Margin="4" Width="48" Height="48">
+					<Canvas Width="32" Height="32">
+						<Path Fill="{DynamicResource MaterialDesignBody}">
+							<Path.Style>
+								<Style TargetType="Path">
+									<Setter Property="Data" Value="M10,2H14L13.21,9.91L19.66,5.27L21.66,8.73L14.42,12L21.66,15.27L19.66,18.73L13.21,14.09L14,22H10L10.79,14.09L4.34,18.73L2.34,15.27L9.58,12L2.34,8.73L4.34,5.27L10.79,9.91L10,2Z"/>
+									<Style.Triggers>
+										<DataTrigger Binding="{Binding Parameter.Image}" Value="{x:Static MessageBoxImage.Asterisk}">
+											<Setter Property="Data" Value="M10,2H14L13.21,9.91L19.66,5.27L21.66,8.73L14.42,12L21.66,15.27L19.66,18.73L13.21,14.09L14,22H10L10.79,14.09L4.34,18.73L2.34,15.27L9.58,12L2.34,8.73L4.34,5.27L10.79,9.91L10,2Z"/>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding Parameter.Image}" Value="{x:Static MessageBoxImage.Error}">
+											<Setter Property="Data" Value="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z"/>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding Parameter.Image}" Value="{x:Static MessageBoxImage.Hand}">
+											<Setter Property="Data" Value="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z"/>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding Parameter.Image}" Value="{x:Static MessageBoxImage.Stop}">
+											<Setter Property="Data" Value="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z"/>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding Parameter.Image}" Value="{x:Static MessageBoxImage.Exclamation}">
+											<Setter Property="Data" Value="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding Parameter.Image}" Value="{x:Static MessageBoxImage.Warning}">
+											<Setter Property="Data" Value="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding Parameter.Image}" Value="{x:Static MessageBoxImage.Information}">
+											<Setter Property="Data" Value="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding Parameter.Image}" Value="{x:Static MessageBoxImage.Question}">
+											<Setter Property="Data" Value="M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"/>
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</Path.Style>
+						</Path>
+					</Canvas>
+				</Viewbox>
+				<TextBlock Margin="4" TextWrapping="Wrap" Text="{Binding Parameter.Message}"/>
+			</StackPanel>
+
+			<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+				<Button Content="{x:Static properties:Captions.CancelCapital}" Margin="4" IsCancel="True" Command="{Binding CancelCommand}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+							<Setter Property="Visibility" Value="Collapsed"/>
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding Parameter.Buttons}" Value="{x:Static MessageBoxButton.OKCancel}">
+									<Setter Property="Visibility" Value="Visible"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding Parameter.Buttons}" Value="{x:Static MessageBoxButton.YesNoCancel}">
+									<Setter Property="Visibility" Value="Visible"/>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
+
+				<Button Content="{x:Static properties:Captions.NoCapital}" Margin="4" Command="{Binding NoCommand}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+							<Setter Property="Visibility" Value="Collapsed"/>
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding Parameter.Buttons}" Value="{x:Static MessageBoxButton.YesNo}">
+									<Setter Property="Visibility" Value="Visible"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding Parameter.Buttons}" Value="{x:Static MessageBoxButton.YesNoCancel}">
+									<Setter Property="Visibility" Value="Visible"/>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
+
+				<Button Content="{x:Static properties:Captions.YesCapital}" Margin="4" Command="{Binding YesCommand}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+							<Setter Property="Visibility" Value="Collapsed"/>
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding Parameter.Buttons}" Value="{x:Static MessageBoxButton.YesNo}">
+									<Setter Property="Visibility" Value="Visible"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding Parameter.Buttons}" Value="{x:Static MessageBoxButton.YesNoCancel}">
+									<Setter Property="Visibility" Value="Visible"/>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
+
+				<Button Content="{x:Static properties:Captions.OK}" Margin="4" Command="{Binding OKCommand}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+							<Setter Property="Visibility" Value="Collapsed"/>
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding Parameter.Buttons}" Value="{x:Static MessageBoxButton.OK}">
+									<Setter Property="Visibility" Value="Visible"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding Parameter.Buttons}" Value="{x:Static MessageBoxButton.OKCancel}">
+									<Setter Property="Visibility" Value="Visible"/>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
+			</StackPanel>
+		</StackPanel>
+	</Grid>
+</UserControl>
