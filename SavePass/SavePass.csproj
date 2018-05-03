@@ -101,7 +101,6 @@
     <Compile Include="DialogService\IDialogService.cs" />
     <Compile Include="DialogService\IDialogView.cs" />
     <Compile Include="Extensions\DispatcherExtensions.cs" />
-    <Compile Include="Extensions\ToolTipService.cs" />
     <Compile Include="Extensions\XmlSerialization.cs" />
     <Compile Include="Extensions\XmlSerializationExtensions.cs" />
     <Compile Include="InstanceNames.cs" />
@@ -210,12 +209,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ProgramIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\key.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Styles\Icons\key.ico" />
