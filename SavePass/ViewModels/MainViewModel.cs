@@ -5,7 +5,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows;
-using Microsoft.Practices.Unity;
+using System.Windows.Data;
 using Prism.Commands;
 using Prism.Mvvm;
 using SavePass.DialogService;
@@ -23,13 +23,13 @@ namespace SavePass.ViewModels
         private readonly IDialogService dialogService;
         private SavePassRepository repository;
         private SavePassItem selectedItem;
+        private ICollectionView items;
 
         #endregion
 
         #region Constructor
 
-        public MainViewModel(IDialogService dialogService,
-            [Dependency(InstanceNames.CommandLineArgs)] string[] args)
+        public MainViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
             NewFileCommand = new DelegateCommand(OnNewFileCommand);
@@ -46,6 +46,7 @@ namespace SavePass.ViewModels
             CopyToClipboardCommand = new DelegateCommand<string>(OnCopyToClipboardCommand);
             OpenBrowserCommand = new DelegateCommand<string>(OnOpenBrowserCommand);
 
+            // ReSharper disable once PossibleNullReferenceException
             Application.Current.MainWindow.Closing += OnShellClosing;
         }
 
@@ -70,6 +71,12 @@ namespace SavePass.ViewModels
         #endregion
 
         #region Properties
+
+        public ICollectionView Items
+        {
+            get => items;
+            set => SetProperty(ref items, value);
+        }
 
         public SavePassRepository Repository
         {
@@ -108,6 +115,7 @@ namespace SavePass.ViewModels
                 return;
 
             Repository = SavePassRepository.New();
+            InitializeCollectionView();
         }
 
         private async void OnOpenFileCommand()
@@ -242,10 +250,13 @@ namespace SavePass.ViewModels
             try
             {
                 Repository = SavePassRepository.FromFile(context.FilePath, context.Password);
+                InitializeCollectionView();
             }
             catch (IOException ex)
             {
                 Repository = null;
+                Items = null;
+
                 await dialogService.ShowMessageBox(ex.Message, Captions.Error,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 await OpenFile(context);
@@ -253,6 +264,8 @@ namespace SavePass.ViewModels
             catch (CryptographicException)
             {
                 Repository = null;
+                Items = null;
+
                 await dialogService.ShowMessageBox(Captions.WrongPassword, Captions.Error,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 await OpenFile(context);
@@ -290,6 +303,7 @@ namespace SavePass.ViewModels
             if (Repository == null || !Repository.HasChanges)
             {
                 Repository = null;
+                Items = null;
                 return MessageBoxResult.No;
             }
 
@@ -309,9 +323,11 @@ namespace SavePass.ViewModels
                     if (!await SaveFile())
                         return MessageBoxResult.Cancel;
                     Repository = null;
+                    Items = null;
                     break;
                 case MessageBoxResult.No:
                     Repository = null;
+                    Items = null;
                     break;
             }
 
@@ -334,6 +350,12 @@ namespace SavePass.ViewModels
                 Application.Current.MainWindow.Closing -= OnShellClosing;
                 Application.Current.MainWindow.Close();
             });
+        }
+
+        private void InitializeCollectionView()
+        {
+            Items = new CollectionViewSource { Source = Repository.Items }.View;
+            Items.SortDescriptions.Add(new SortDescription(nameof(SavePassItem.Name), ListSortDirection.Ascending));
         }
 
         #endregion

@@ -60,7 +60,7 @@
 
 					<md:Card VerticalAlignment="Stretch" Margin="8 8 4 8" Grid.Column="0" Grid.Row="0">
 						<Grid>
-							<ListBox ItemsSource="{Binding Repository.Items}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedItem}">
+							<ListBox ItemsSource="{Binding Items}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedItem}">
 								<ListBox.ContextMenu>
 									<ContextMenu>
 										<MenuItem Header="{x:Static properties:Captions.AddEntry}" Icon="{md:PackIcon Plus}"
@@ -87,8 +87,17 @@
 								</ListBox.ItemContainerStyle>
 							</ListBox>
 
-							<md:PopupBox Margin="8" HorizontalAlignment="Right" VerticalAlignment="Bottom"
-							             Style="{DynamicResource MaterialDesignMultiFloatingActionPopupBox}">
+							<md:PopupBox Margin="8" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+								<md:PopupBox.Style>
+									<Style TargetType="md:PopupBox" BasedOn="{StaticResource MaterialDesignMultiFloatingActionPopupBox}">
+										<Setter Property="IsEnabled" Value="True"/>
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding Repository}" Value="{x:Null}">
+												<Setter Property="IsEnabled" Value="False"/>
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</md:PopupBox.Style>
 								<StackPanel>
 									<Button ToolTip="{x:Static properties:Captions.RemoveEntry}" Content="{md:PackIcon Delete}"
 									        Command="{Binding RemoveItemCommand}"/>

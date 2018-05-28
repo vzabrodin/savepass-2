@@ -36,10 +36,10 @@
 			         Text="{Binding Notes}"/>
 
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-				<Button Content="{x:Static properties:Captions.AcceptCapital}" Style="{StaticResource MaterialDesignFlatButton}"
-				        Margin="4" IsDefault="True" Command="{Binding ApplyCommand}"/>
 				<Button Content="{x:Static properties:Captions.CancelCapital}" Style="{StaticResource MaterialDesignFlatButton}"
 				        Margin="4" IsCancel="True" Command="{Binding CancelCommand}"/>
+				<Button Content="{x:Static properties:Captions.AcceptCapital}" Style="{StaticResource MaterialDesignFlatButton}"
+				        Margin="4" IsDefault="True" Command="{Binding ApplyCommand}"/>
 			</StackPanel>
 	    </StackPanel>
 	</Grid>
