@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using Prism.Commands;
-using SavePass.DialogService;
-using SavePass.ViewModels.Contexts;
+using Zabrodin.SavePass.DialogService;
+using Zabrodin.SavePass.ViewModels.Contexts;
 
-namespace SavePass.ViewModels
+namespace Zabrodin.SavePass.ViewModels
 {
     public class MessageBoxDialogViewModel : ConfirmationViewModel<MessageBoxDialogContext>
     {

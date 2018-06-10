@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.IO;
 
-namespace SavePass.Validation
+namespace Zabrodin.SavePass.Validation
 {
     public class FileExistsValidationAttribute : ValidationAttribute
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SavePass.Properties {
+namespace Zabrodin.SavePass.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SavePass.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SavePass.Properties.Captions", typeof(Captions).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zabrodin.SavePass.Properties.Captions", typeof(Captions).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

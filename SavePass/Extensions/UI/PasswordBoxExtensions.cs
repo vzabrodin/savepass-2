@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SavePass.Extensions.UI
+namespace Zabrodin.SavePass.Extensions.UI
 {
-    public class PasswordBoxExtensions
+    public static class PasswordBoxExtensions
     {
         public static readonly DependencyProperty PasswordProperty = DependencyProperty.RegisterAttached(
             "Password", typeof(string), typeof(PasswordBoxExtensions),

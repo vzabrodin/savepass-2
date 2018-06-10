@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using SavePass.DialogService;
+using Zabrodin.SavePass.DialogService;
 
-namespace SavePass.ViewModels
+namespace Zabrodin.SavePass.ViewModels
 {
     public class ChangePasswordDialogViewModel : ConfirmationViewModel<Confirmation<string>>
     {

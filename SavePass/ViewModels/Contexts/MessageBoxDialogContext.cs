@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using SavePass.DialogService;
+using Zabrodin.SavePass.DialogService;
 
-namespace SavePass.ViewModels.Contexts
+namespace Zabrodin.SavePass.ViewModels.Contexts
 {
     public class MessageBoxDialogContext : Confirmation
     {

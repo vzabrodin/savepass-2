@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SavePass.Security
+namespace Zabrodin.SavePass.Security
 {
     public class AESWrapper
     {

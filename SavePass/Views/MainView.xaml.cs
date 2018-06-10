@@ -1,4 +1,4 @@
-﻿namespace SavePass.Views
+﻿namespace Zabrodin.SavePass.Views
 {
     public partial class MainView
     {

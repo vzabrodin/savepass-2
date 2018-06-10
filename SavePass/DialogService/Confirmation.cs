@@ -1,6 +1,6 @@
-﻿using SavePass.Validation;
+﻿using Zabrodin.SavePass.Validation;
 
-namespace SavePass.DialogService
+namespace Zabrodin.SavePass.DialogService
 {
     public class Confirmation : ValidationBase
     {

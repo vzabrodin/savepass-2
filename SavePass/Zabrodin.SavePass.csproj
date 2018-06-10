@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A0B066F2-72BA-4473-AE05-F2D0984F7C21}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SavePass</RootNamespace>
-    <AssemblyName>SavePass</AssemblyName>
+    <RootNamespace>Zabrodin.SavePass</RootNamespace>
+    <AssemblyName>Zabrodin.SavePass</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>SavePass.App</StartupObject>
+    <StartupObject>Zabrodin.SavePass.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Styles\Icons\key.ico</ApplicationIcon>

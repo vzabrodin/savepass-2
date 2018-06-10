@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SavePass", "SavePass\SavePass.csproj", "{A0B066F2-72BA-4473-AE05-F2D0984F7C21}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zabrodin.SavePass", "SavePass\Zabrodin.SavePass.csproj", "{A0B066F2-72BA-4473-AE05-F2D0984F7C21}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UML Diagrams", "UML Diagrams", "{71D29E20-9E31-4EEE-9516-6B4665AAC9DE}"
+	ProjectSection(SolutionItems) = preProject
+		UML Diagrams\Zabrodin.SavePass.ncp = UML Diagrams\Zabrodin.SavePass.ncp
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

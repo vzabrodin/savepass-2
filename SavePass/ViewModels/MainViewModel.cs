@@ -8,13 +8,13 @@ using System.Windows;
 using System.Windows.Data;
 using Prism.Commands;
 using Prism.Mvvm;
-using SavePass.DialogService;
-using SavePass.Extensions;
-using SavePass.Models;
-using SavePass.Properties;
-using SavePass.ViewModels.Contexts;
+using Zabrodin.SavePass.DialogService;
+using Zabrodin.SavePass.Extensions;
+using Zabrodin.SavePass.Models;
+using Zabrodin.SavePass.Properties;
+using Zabrodin.SavePass.ViewModels.Contexts;
 
-namespace SavePass.ViewModels
+namespace Zabrodin.SavePass.ViewModels
 {
     public class MainViewModel : BindableBase
     {
@@ -151,6 +151,7 @@ namespace SavePass.ViewModels
             Repository.SetPassword(context.Value);
         }
 
+        // ReSharper disable once PossibleNullReferenceException
         private void OnExitCommand() => Application.Current.MainWindow.Close();
 
         #endregion
@@ -347,6 +348,7 @@ namespace SavePass.ViewModels
                 if (await TrySave() == MessageBoxResult.Cancel)
                     return;
 
+                // ReSharper disable once PossibleNullReferenceException
                 Application.Current.MainWindow.Closing -= OnShellClosing;
                 Application.Current.MainWindow.Close();
             });

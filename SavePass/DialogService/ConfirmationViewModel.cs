@@ -1,8 +1,8 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using SavePass.Validation;
+using Zabrodin.SavePass.Validation;
 
-namespace SavePass.DialogService
+namespace Zabrodin.SavePass.DialogService
 {
     public abstract class ConfirmationViewModel<T> : ValidationBase
         where T : Confirmation

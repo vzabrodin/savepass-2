@@ -1,4 +1,4 @@
-﻿namespace SavePass.Extensions
+﻿namespace Zabrodin.SavePass.Extensions
 {
     public static class XmlSerializationExtensions
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Threading;
 
-namespace SavePass.Extensions
+namespace Zabrodin.SavePass.Extensions
 {
     public static class DispatcherExtensions
     {

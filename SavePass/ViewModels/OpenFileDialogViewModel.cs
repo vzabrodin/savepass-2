@@ -1,13 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using Microsoft.Win32;
 using Prism.Commands;
-using SavePass.DialogService;
-using SavePass.ViewModels.Contexts;
-using System.ComponentModel.DataAnnotations;
-using SavePass.Validation;
+using Zabrodin.SavePass.DialogService;
+using Zabrodin.SavePass.Validation;
+using Zabrodin.SavePass.ViewModels.Contexts;
 
-namespace SavePass.ViewModels
+namespace Zabrodin.SavePass.ViewModels
 {
     public class OpenFileDialogViewModel : ConfirmationViewModel<OpenFileContext>
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using SavePass.DialogService;
-using SavePass.Models;
+using Zabrodin.SavePass.DialogService;
+using Zabrodin.SavePass.Models;
 
-namespace SavePass.ViewModels
+namespace Zabrodin.SavePass.ViewModels
 {
     public class EditEntityDialogViewModel : ConfirmationViewModel<Confirmation<SavePassItem>>
     {

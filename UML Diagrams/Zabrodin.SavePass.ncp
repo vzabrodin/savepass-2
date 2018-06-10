@@ -1,0 +1,660 @@
+<Project>
+  <Name>Zabrodin.SavePass</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Zabrodin.SavePass</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Interface">
+        <Name>ILoadedViewModel</Name>
+        <Access>Public</Access>
+        <Location left="3108" top="387" />
+        <Size width="430" height="78" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">Task OnLoaded()</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IDialogService</Name>
+        <Access>Public</Access>
+        <Location left="3108" top="1470" />
+        <Size width="887" height="95" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">Task&lt;T&gt; Show(String viewName, T context)</Member>
+        <Member type="Method">Task&lt;MessageBoxResult&gt; ShowMessageBox(String message, String title, MessageBoxButton buttons = 0, MessageBoxImage image = 64)</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IDialogView</Name>
+        <Access>Public</Access>
+        <Location left="288" top="1583" />
+        <Size width="193" height="78" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">Object DataContext { get; set; }</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>Bootstrapper</Name>
+        <Access>Public</Access>
+        <Location left="1480" top="35" />
+        <Size width="194" height="213" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly String[] args</Member>
+        <Member type="Constructor">public Bootstrapper(String[] args)</Member>
+        <Member type="Method">protected virtual Void InitializeShell()</Member>
+        <Member type="Method">protected virtual DependencyObject CreateShell()</Member>
+        <Member type="Method">protected virtual Void ConfigureContainer()</Member>
+        <Member type="Method">private Void RegisterInstances()</Member>
+        <Member type="Method">private Void RegisterServices()</Member>
+        <Member type="Method">private Void RegisterViews()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>InstanceNames</Name>
+        <Access>Public</Access>
+        <Location left="1180" top="450" />
+        <Size width="495" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public const String CommandLineArgs = CommandLineArgs</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ViewNames</Name>
+        <Access>Public</Access>
+        <Location left="1180" top="271" />
+        <Size width="495" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public const String MainView = MainView</Member>
+        <Member type="Field">public const String MessageBoxDialogView = MessageBoxDialogView</Member>
+        <Member type="Field">public const String EditEntityDialogView = EditEntityDialogView</Member>
+        <Member type="Field">public const String ChangePasswordDialogView = ChangePasswordDialogView</Member>
+        <Member type="Field">public const String OpenFileDialogView = OpenFileDialogView</Member>
+        <Modifier>Static</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ShellViewModel</Name>
+        <Access>Public</Access>
+        <Location left="288" top="878" />
+        <Size width="380" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly IRegionManager regionManager</Member>
+        <Member type="Field">private DelegateCommand&lt;Window&gt; minimizeWindowCommand</Member>
+        <Member type="Field">private DelegateCommand&lt;Window&gt; maximizeWindowCommand</Member>
+        <Member type="Field">private DelegateCommand&lt;Window&gt; closeWindowCommand</Member>
+        <Member type="Property">public DelegateCommand&lt;Window&gt; MinimizeWindowCommand { get; private set; }</Member>
+        <Member type="Property">public DelegateCommand&lt;Window&gt; MaximizeWindowCommand { get; private set; }</Member>
+        <Member type="Property">public DelegateCommand&lt;Window&gt; CloseWindowCommand { get; private set; }</Member>
+        <Member type="Constructor">public ShellViewModel(IRegionManager regionManager)</Member>
+        <Member type="Method">public Void OnShellLoaded()</Member>
+        <Member type="Method">private Void MinimizeWindow(Window window)</Member>
+        <Member type="Method">private Void MaximizeWindow(Window window)</Member>
+        <Member type="Method">private Void CloseWindow(Window window)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>App</Name>
+        <Access>Public</Access>
+        <Location left="1180" top="35" />
+        <Size width="216" height="213" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Bootstrapper bootstrapper</Member>
+        <Member type="Constructor">public App()</Member>
+        <Member type="Method">protected virtual Void OnStartup(StartupEventArgs e)</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Member type="Method">public static Void Main()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Shell</Name>
+        <Access>Public</Access>
+        <Location left="10" top="1884" />
+        <Size width="435" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">internal Shell ShellWindow</Member>
+        <Member type="Field">internal ColorZone TitleBar</Member>
+        <Member type="Field">internal Button MinimizeButton</Member>
+        <Member type="Field">internal Button MaximizeButton</Member>
+        <Member type="Field">internal Button CloseButton</Member>
+        <Member type="Field">internal ContentControl MainViewControl</Member>
+        <Member type="Constructor">public Shell()</Member>
+        <Member type="Method">private Void OnLoaded(Object sender, RoutedEventArgs routedEventArgs)</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>EditEntityDialogView</Name>
+        <Access>Public</Access>
+        <Location left="791" top="1727" />
+        <Size width="238" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public EditEntityDialogView()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MainView</Name>
+        <Access>Public</Access>
+        <Location left="526" top="1884" />
+        <Size width="503" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">internal ToggleButton ShowPasswordToggleButton</Member>
+        <Member type="Constructor">public MainView()</Member>
+        <Member type="Method">private Void OnLoaded(Object sender, RoutedEventArgs e)</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MessageBoxDialogView</Name>
+        <Access>Public</Access>
+        <Location left="526" top="1727" />
+        <Size width="238" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public MessageBoxDialogView()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ChangePasswordDialogView</Name>
+        <Access>Public</Access>
+        <Location left="268" top="1727" />
+        <Size width="238" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public ChangePasswordDialogView()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>OpenFileDialogView</Name>
+        <Access>Public</Access>
+        <Location left="10" top="1727" />
+        <Size width="238" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">internal ToggleButton ShowPasswordToggleButton</Member>
+        <Member type="Constructor">public OpenFileDialogView()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AESWrapper</Name>
+        <Access>Public</Access>
+        <Location left="3565" top="1010" />
+        <Size width="430" height="408" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly Byte[] salt</Member>
+        <Member type="Field">private readonly Encoding defaultEncoding</Member>
+        <Member type="Field">private readonly Int32 keySize</Member>
+        <Member type="Field">private readonly Int32 blockSize</Member>
+        <Member type="Property">public Byte[] Key { get; }</Member>
+        <Member type="Property">public Byte[] IV { get; }</Member>
+        <Member type="Constructor">public AESWrapper(String password, Int32 keySize = 256, Int32 blockSize = 128)</Member>
+        <Member type="Method">public Byte[] Encrypt(String data)</Member>
+        <Member type="Method">public Byte[] Encrypt(String data, Encoding encoding)</Member>
+        <Member type="Method">public String Decrypt(Byte[] data)</Member>
+        <Member type="Method">public String Decrypt(Byte[] data, Encoding encoding)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>EditEntityDialogViewModel</Name>
+        <Access>Public</Access>
+        <Location left="694" top="878" />
+        <Size width="293" height="349" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private String name</Member>
+        <Member type="Field">private String userName</Member>
+        <Member type="Field">private String password</Member>
+        <Member type="Field">private String email</Member>
+        <Member type="Field">private String webSite</Member>
+        <Member type="Field">private String notes</Member>
+        <Member type="Property">public String Name { get; set; }</Member>
+        <Member type="Property">public String UserName { get; set; }</Member>
+        <Member type="Property">public String Password { get; set; }</Member>
+        <Member type="Property">public String Email { get; set; }</Member>
+        <Member type="Property">public String WebSite { get; set; }</Member>
+        <Member type="Property">public String Notes { get; set; }</Member>
+        <Member type="Constructor">public EditEntityDialogViewModel()</Member>
+        <Member type="Method">public override Void Initialize(Confirmation&lt;SavePassItem&gt; param)</Member>
+        <Member type="Method">protected virtual Boolean OnCanExecuteApplyCommand()</Member>
+        <Member type="Method">protected virtual Void OnApplyCommand()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MessageBoxDialogViewModel</Name>
+        <Access>Public</Access>
+        <Location left="288" top="1182" />
+        <Size width="380" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public DelegateCommand YesCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand NoCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand OKCommand { get; }</Member>
+        <Member type="Constructor">public MessageBoxDialogViewModel()</Member>
+        <Member type="Method">private Void OnYesCommand()</Member>
+        <Member type="Method">private Void OnNoCommand()</Member>
+        <Member type="Method">private Void OnOKCommand()</Member>
+        <Member type="Method">protected virtual Void OnCancelCommand()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ChangePasswordDialogViewModel</Name>
+        <Access>Public</Access>
+        <Location left="10" top="1182" />
+        <Size width="256" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private String newPassword</Member>
+        <Member type="Field">private String repeatPassword</Member>
+        <Member type="Property">public String NewPassword { get; set; }</Member>
+        <Member type="Property">public String RepeatPassword { get; set; }</Member>
+        <Member type="Constructor">public ChangePasswordDialogViewModel()</Member>
+        <Member type="Method">protected virtual Void OnApplyCommand()</Member>
+        <Member type="Method">protected virtual Boolean OnCanExecuteApplyCommand()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MainViewModel</Name>
+        <Access>Public</Access>
+        <Location left="3108" top="542" />
+        <Size width="430" height="876" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly IDialogService dialogService</Member>
+        <Member type="Field">private readonly String[] args</Member>
+        <Member type="Field">private SavePassRepository repository</Member>
+        <Member type="Field">private SavePassItem selectedItem</Member>
+        <Member type="Property">public DelegateCommand NewFileCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand OpenFileCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand CloseFileCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand SaveFileCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand SaveFileAsCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand FileSettingsCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand AddItemCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand EditItemCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand RemoveItemCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand ExitCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand AboutCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand&lt;String&gt; CopyToClipboardCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand&lt;String&gt; OpenBrowserCommand { get; }</Member>
+        <Member type="Property">public SavePassRepository Repository { get; private set; }</Member>
+        <Member type="Property">public SavePassItem SelectedItem { get; set; }</Member>
+        <Member type="Constructor">public MainViewModel(IDialogService dialogService, String[] args)</Member>
+        <Member type="Method">public Task OnLoaded()</Member>
+        <Member type="Method">private Void OnNewFileCommand()</Member>
+        <Member type="Method">private Void OnOpenFileCommand()</Member>
+        <Member type="Method">private Boolean OnCanCloseFileCommand()</Member>
+        <Member type="Method">private Void OnCloseFileCommand()</Member>
+        <Member type="Method">private Boolean OnCanSaveFileCommand()</Member>
+        <Member type="Method">private Void OnSaveFileCommand()</Member>
+        <Member type="Method">private Boolean OnCanSaveFileAsCommand()</Member>
+        <Member type="Method">private Void OnSaveFileAsCommand()</Member>
+        <Member type="Method">private Boolean OnCanFileSettingsCommand()</Member>
+        <Member type="Method">private Void OnFileSettingsCommand()</Member>
+        <Member type="Method">private Void OnExitCommand()</Member>
+        <Member type="Method">private Boolean OnCanAddItemCommand()</Member>
+        <Member type="Method">private Void OnAddItemCommand()</Member>
+        <Member type="Method">private Boolean OnCanEditItemCommand()</Member>
+        <Member type="Method">private Void OnEditItemCommand()</Member>
+        <Member type="Method">private Boolean OnCanRemoveItemCommand()</Member>
+        <Member type="Method">private Void OnRemoveItemCommand()</Member>
+        <Member type="Method">private Void OnAboutCommand()</Member>
+        <Member type="Method">private Void OnCopyToClipboardCommand(String value)</Member>
+        <Member type="Method">private Void OnOpenBrowserCommand(String value)</Member>
+        <Member type="Method">private Task OpenFile(OpenFileContext context)</Member>
+        <Member type="Method">private Task&lt;Boolean&gt; SaveFile()</Member>
+        <Member type="Method">private Task&lt;Boolean&gt; SaveFileAs()</Member>
+        <Member type="Method">private Task&lt;MessageBoxResult&gt; TrySave()</Member>
+        <Member type="Method">private Void OnShellClosing(Object sender, CancelEventArgs args)</Member>
+        <Member type="Method">private Void OnExit()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>OpenFileDialogViewModel</Name>
+        <Access>Public</Access>
+        <Location left="10" top="878" />
+        <Size width="256" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private String newFilePath</Member>
+        <Member type="Field">private String openFilePath</Member>
+        <Member type="Property">public String NewFilePath { get; set; }</Member>
+        <Member type="Property">public String OpenFilePath { get; set; }</Member>
+        <Member type="Property">public DelegateCommand BrowseCommand { get; }</Member>
+        <Member type="Constructor">public OpenFileDialogViewModel()</Member>
+        <Member type="Method">public override Void Initialize(OpenFileContext param)</Member>
+        <Member type="Method">protected virtual Boolean OnCanExecuteApplyCommand()</Member>
+        <Member type="Method">protected virtual Void OnApplyCommand()</Member>
+        <Member type="Method">private Void OnBrowseCommand()</Member>
+        <Member type="Method">private String GetFilePath()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MessageBoxDialogContext</Name>
+        <Access>Public</Access>
+        <Location left="1684" top="878" />
+        <Size width="230" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private String message</Member>
+        <Member type="Field">private MessageBoxButton buttons</Member>
+        <Member type="Field">private MessageBoxImage image</Member>
+        <Member type="Field">private MessageBoxResult result</Member>
+        <Member type="Property">public String Message { get; set; }</Member>
+        <Member type="Property">public MessageBoxButton Buttons { get; set; }</Member>
+        <Member type="Property">public MessageBoxImage Image { get; set; }</Member>
+        <Member type="Property">public MessageBoxResult Result { get; set; }</Member>
+        <Member type="Constructor">public MessageBoxDialogContext()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>OpenFileContext</Name>
+        <Access>Public</Access>
+        <Location left="1415" top="878" />
+        <Size width="252" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private String filePath</Member>
+        <Member type="Field">private String password</Member>
+        <Member type="Field">private Boolean isSave</Member>
+        <Member type="Field">private Boolean showPassword</Member>
+        <Member type="Property">public String FilePath { get; set; }</Member>
+        <Member type="Property">public String Password { get; set; }</Member>
+        <Member type="Property">public Boolean IsSave { get; set; }</Member>
+        <Member type="Property">public Boolean ShowPassword { get; set; }</Member>
+        <Member type="Constructor">public OpenFileContext()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>FileExistsValidationAttribute</Name>
+        <Access>Public</Access>
+        <Location left="27" top="610" />
+        <Size width="556" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public FileExistsValidationAttribute()</Member>
+        <Member type="Method">protected virtual ValidationResult IsValid(Object value, ValidationContext validationContext)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ValidationBase</Name>
+        <Access>Public</Access>
+        <Location left="1415" top="1472" />
+        <Size width="499" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">String System.ComponentModel.IDataErrorInfo.Error { get; }</Member>
+        <Member type="Property">String this[String propertyName] { get; }</Member>
+        <Member type="Constructor">protected ValidationBase()</Member>
+        <Member type="Method">private Object GetValue(String propertyName)</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SavePassFile</Name>
+        <Access>Public</Access>
+        <Location left="2799" top="1155" />
+        <Size width="208" height="263" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public SavePassItem[] Items { get; set; }</Member>
+        <Member type="Constructor">public SavePassFile()</Member>
+        <Member type="Constructor">public SavePassFile(SavePassItem[] items)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SavePassItem</Name>
+        <Access>Public</Access>
+        <Location left="2799" top="542" />
+        <Size width="209" height="578" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private String name</Member>
+        <Member type="Field">private String userName</Member>
+        <Member type="Field">private String password</Member>
+        <Member type="Field">private String email</Member>
+        <Member type="Field">private String webSite</Member>
+        <Member type="Field">private String notes</Member>
+        <Member type="Property">public Guid Id { get; }</Member>
+        <Member type="Property">public String Name { get; set; }</Member>
+        <Member type="Property">public String UserName { get; set; }</Member>
+        <Member type="Property">public String Password { get; set; }</Member>
+        <Member type="Property">public String Email { get; set; }</Member>
+        <Member type="Property">public String WebSite { get; set; }</Member>
+        <Member type="Property">public String Notes { get; set; }</Member>
+        <Member type="Constructor">public SavePassItem()</Member>
+        <Member type="Constructor">public SavePassItem(Guid id)</Member>
+        <Member type="Method">public Boolean ShouldSerializeName()</Member>
+        <Member type="Method">public Boolean ShouldSerializeUserName()</Member>
+        <Member type="Method">public Boolean ShouldSerializePassword()</Member>
+        <Member type="Method">public Boolean ShouldSerializeEmail()</Member>
+        <Member type="Method">public Boolean ShouldSerializeWebSite()</Member>
+        <Member type="Method">public Boolean ShouldSerializeNotes()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SavePassRepository</Name>
+        <Access>Public</Access>
+        <Location left="3565" top="542" />
+        <Size width="430" height="417" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private AESWrapper aes</Member>
+        <Member type="Field">private readonly ObservableCollection&lt;SavePassItem&gt; items</Member>
+        <Member type="Field">private Boolean hasChanges</Member>
+        <Member type="Field">private String filePath</Member>
+        <Member type="Property">public Boolean HasChanges { get; private set; }</Member>
+        <Member type="Property">public String FilePath { get; private set; }</Member>
+        <Member type="Property">public ReadOnlyObservableCollection&lt;SavePassItem&gt; Items { get; }</Member>
+        <Member type="Constructor">private SavePassRepository()</Member>
+        <Member type="Constructor">private SavePassRepository(String filepath, String password)</Member>
+        <Member type="Method">public Void Add(SavePassItem item)</Member>
+        <Member type="Method">public Boolean Remove(SavePassItem item)</Member>
+        <Member type="Method">public Void Save()</Member>
+        <Member type="Method">public Void Save(String filepath)</Member>
+        <Member type="Method">public Void SetPassword(String password)</Member>
+        <Member type="Method">public Void SaveXml()</Member>
+        <Member type="Method">public Void SaveXml(String filepath)</Member>
+        <Member type="Method">private Void OnEntitiesPropertyChanged(Object sender, PropertyChangedEventArgs e)</Member>
+        <Member type="Method">private Void OnCollectionChanged(Object sender, NotifyCollectionChangedEventArgs e)</Member>
+        <Member type="Method">public static SavePassRepository New()</Member>
+        <Member type="Method">public static SavePassRepository FromFile(String filepath, String password)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DispatcherExtensions</Name>
+        <Access>Public</Access>
+        <Location left="27" top="496" />
+        <Size width="556" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public static Void ExecuteWithCheck(Dispatcher dispatcher, Action method)</Member>
+        <Modifier>Static</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>XmlSerialization</Name>
+        <Access>Public</Access>
+        <Location left="27" top="332" />
+        <Size width="556" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public static T DeserializeObject(String xml)</Member>
+        <Member type="Method">public static String SerializeObject(Object obj, Boolean withFormatting = True)</Member>
+        <Member type="Method">public static T DeserializeObject(String xml, Encoding encoding)</Member>
+        <Member type="Method">public static String SerializeObject(Object obj, Encoding encoding, Boolean withFormatting = False)</Member>
+        <Modifier>Static</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>XmlSerializationExtensions</Name>
+        <Access>Public</Access>
+        <Location left="602" top="332" />
+        <Size width="186" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public static T FromXml(String xml)</Member>
+        <Member type="Method">public static String ToXml(T obj)</Member>
+        <Modifier>Static</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>PasswordBoxExtensions</Name>
+        <Access>Public</Access>
+        <Location left="27" top="35" />
+        <Size width="556" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public static DependencyProperty PasswordProperty</Member>
+        <Member type="Field">public static DependencyProperty AttachProperty</Member>
+        <Member type="Field">private static DependencyProperty IsUpdatingProperty</Member>
+        <Member type="Method">public static Void SetAttach(DependencyObject dp, Boolean value)</Member>
+        <Member type="Method">public static Boolean GetAttach(DependencyObject dp)</Member>
+        <Member type="Method">public static String GetPassword(DependencyObject dp)</Member>
+        <Member type="Method">public static Void SetPassword(DependencyObject dp, String value)</Member>
+        <Member type="Method">private static Boolean GetIsUpdating(DependencyObject dp)</Member>
+        <Member type="Method">private static Void SetIsUpdating(DependencyObject dp, Boolean value)</Member>
+        <Member type="Method">private static Void OnPasswordPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)</Member>
+        <Member type="Method">private static Void Attach(DependencyObject sender, DependencyPropertyChangedEventArgs e)</Member>
+        <Member type="Method">private static Void PasswordChanged(Object sender, RoutedEventArgs e)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Confirmation</Name>
+        <Access>Public</Access>
+        <Location left="1684" top="1158" />
+        <Size width="230" height="264" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Boolean confirmed</Member>
+        <Member type="Field">private String title</Member>
+        <Member type="Property">public Boolean Confirmed { get; set; }</Member>
+        <Member type="Property">public String Title { get; set; }</Member>
+        <Member type="Constructor">public Confirmation()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Confirmation&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="1964" top="1158" />
+        <Size width="163" height="264" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private T value</Member>
+        <Member type="Property">public T Value { get; set; }</Member>
+        <Member type="Constructor">public Confirmation()</Member>
+        <Member type="Constructor">public Confirmation(T value)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ConfirmationViewModel&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="1415" top="1158" />
+        <Size width="252" height="264" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private T parameter</Member>
+        <Member type="Property">public DelegateCommand ApplyCommand { get; }</Member>
+        <Member type="Property">public DelegateCommand CancelCommand { get; }</Member>
+        <Member type="Property">public T Parameter { get; set; }</Member>
+        <Member type="Constructor">protected ConfirmationViewModel()</Member>
+        <Member type="Method">public virtual Void Initialize(T param)</Member>
+        <Member type="Method">public Void Close()</Member>
+        <Member type="Method">protected virtual Void OnCancelCommand()</Member>
+        <Member type="Method">protected virtual Boolean OnCanExecuteCancelCommand()</Member>
+        <Member type="Method">protected virtual Void OnApplyCommand()</Member>
+        <Member type="Method">protected virtual Boolean OnCanExecuteApplyCommand()</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DialogService</Name>
+        <Access>Public</Access>
+        <Location left="3108" top="1625" />
+        <Size width="887" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly IUnityContainer unityContainer</Member>
+        <Member type="Constructor">public DialogService(IUnityContainer unityContainer)</Member>
+        <Member type="Method">public Task&lt;T&gt; Show(String viewName, T context)</Member>
+        <Member type="Method">public Task&lt;MessageBoxResult&gt; ShowMessageBox(String message, String title, MessageBoxButton buttons = 0, MessageBoxImage image = 64)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Generalization" first="20" second="31">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="21" second="31">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="31" second="23">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="32" second="31">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="33" second="23">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="9" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="11" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="12" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="13" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="18" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="34" second="1">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="7" second="3">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>bootstrapper</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="8" second="8">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>ShellWindow</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="18" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>dialogService</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="18" second="26">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>repository</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="18" second="25">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>selectedItem</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="26" second="14">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>aes</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>

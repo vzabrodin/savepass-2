@@ -4,7 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace SavePass.Extensions
+namespace Zabrodin.SavePass.Extensions
 {
     public static class XmlSerialization
     {

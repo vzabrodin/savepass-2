@@ -1,6 +1,6 @@
-﻿using SavePass.DialogService;
+﻿using Zabrodin.SavePass.DialogService;
 
-namespace SavePass.Views
+namespace Zabrodin.SavePass.Views
 {
     public partial class ChangePasswordDialogView : IDialogView
     {

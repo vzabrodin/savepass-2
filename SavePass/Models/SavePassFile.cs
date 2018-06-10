@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace SavePass.Models
+namespace Zabrodin.SavePass.Models
 {
     public class SavePassFile
     {

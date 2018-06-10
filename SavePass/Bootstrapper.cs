@@ -2,10 +2,10 @@
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
 using Prism.Unity;
-using SavePass.DialogService;
-using SavePass.Views;
+using Zabrodin.SavePass.DialogService;
+using Zabrodin.SavePass.Views;
 
-namespace SavePass
+namespace Zabrodin.SavePass
 {
     public class Bootstrapper : UnityBootstrapper
     {

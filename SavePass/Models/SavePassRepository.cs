@@ -5,10 +5,10 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Prism.Mvvm;
-using SavePass.Extensions;
-using SavePass.Security;
+using Zabrodin.SavePass.Extensions;
+using Zabrodin.SavePass.Security;
 
-namespace SavePass.Models
+namespace Zabrodin.SavePass.Models
 {
     public class SavePassRepository : BindableBase
     {

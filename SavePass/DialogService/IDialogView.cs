@@ -1,4 +1,4 @@
-﻿namespace SavePass.DialogService
+﻿namespace Zabrodin.SavePass.DialogService
 {
     public interface IDialogView
     {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
 
-namespace SavePass.DialogService
+namespace Zabrodin.SavePass.DialogService
 {
     public interface IDialogService
     {

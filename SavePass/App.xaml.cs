@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace SavePass
+namespace Zabrodin.SavePass
 {
     public partial class App
     {

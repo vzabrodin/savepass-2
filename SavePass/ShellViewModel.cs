@@ -3,7 +3,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 
-namespace SavePass
+namespace Zabrodin.SavePass
 {
     public class ShellViewModel : BindableBase
     {

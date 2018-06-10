@@ -1,4 +1,4 @@
-﻿namespace SavePass
+﻿namespace Zabrodin.SavePass
 {
     public class InstanceNames
     {

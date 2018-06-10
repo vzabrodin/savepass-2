@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using Prism.Mvvm;
 
-namespace SavePass.Models
+namespace Zabrodin.SavePass.Models
 {
     public class SavePassItem : BindableBase
     {

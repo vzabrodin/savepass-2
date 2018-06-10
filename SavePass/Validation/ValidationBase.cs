@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Prism.Mvvm;
 
-namespace SavePass.Validation
+namespace Zabrodin.SavePass.Validation
 {
     public abstract class ValidationBase : BindableBase, IDataErrorInfo
     {

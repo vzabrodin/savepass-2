@@ -2,9 +2,9 @@
 using System.Windows;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Practices.Unity;
-using SavePass.ViewModels.Contexts;
+using Zabrodin.SavePass.ViewModels.Contexts;
 
-namespace SavePass.DialogService
+namespace Zabrodin.SavePass.DialogService
 {
     public class DialogService : IDialogService
     {
