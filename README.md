@@ -7,4 +7,4 @@ Less govnocode. But it is still govnocode.
 
 ## Screenshots
 
-![Main Window](https://i.imgur.com/8GsPtkU.png)
+![Main Window](https://i.imgur.com/8GsPtkU.png =250)
