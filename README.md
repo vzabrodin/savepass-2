@@ -3,7 +3,7 @@
 Second version of password manager.
 Made with a look at my almost year experience of application development in C# / WPF.
 
-Less govnocode. But it is still govnocode.
+> Less govnocode. But it is still govnocode.
 
 ## Screenshots
 
