@@ -8,16 +8,20 @@ namespace Zabrodin.SavePass.DialogService
         where T : Confirmation
     {
         private T parameter;
+        private DelegateCommand cancelCommand;
+        private DelegateCommand applyCommand;
 
-        protected ConfirmationViewModel()
+        public DelegateCommand ApplyCommand
         {
-            ApplyCommand = new DelegateCommand(OnApplyCommand, OnCanExecuteApplyCommand);
-            CancelCommand = new DelegateCommand(OnCancelCommand, OnCanExecuteCancelCommand);
+            get => applyCommand;
+            protected set => SetProperty(ref applyCommand, value);
         }
 
-        public DelegateCommand ApplyCommand { get; }
-
-        public DelegateCommand CancelCommand { get; }
+        public DelegateCommand CancelCommand
+        {
+            get => cancelCommand;
+            protected set => SetProperty(ref cancelCommand, value);
+        }
 
         public T Parameter
         {
@@ -28,6 +32,9 @@ namespace Zabrodin.SavePass.DialogService
         public virtual void Initialize(T param)
         {
             Parameter = param;
+
+            ApplyCommand = new DelegateCommand(OnApplyCommand, OnCanExecuteApplyCommand);
+            CancelCommand = new DelegateCommand(OnCancelCommand, OnCanExecuteCancelCommand);
         }
 
         public void Close() => DialogHost.CloseDialogCommand.Execute(null, null);

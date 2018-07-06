@@ -177,7 +177,7 @@ namespace Zabrodin.SavePass.ViewModels
         private async void OnEditItemCommand()
         {
             await dialogService.Show(ViewNames.EditEntityDialogView,
-                new Confirmation<SavePassItem>(SelectedItem) { Title = Captions.AddEntry });
+                new Confirmation<SavePassItem>(SelectedItem) { Title = Captions.EditEntry });
         }
 
         private bool OnCanRemoveItemCommand() => SelectedItem != null && Repository != null;
@@ -186,7 +186,7 @@ namespace Zabrodin.SavePass.ViewModels
         {
             MessageBoxResult result = await dialogService.ShowMessageBox(
                 Messages.DoYouWantToRemoveSelectedEntry,
-                Captions.AddEntry,
+                Captions.RemoveEntry,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 

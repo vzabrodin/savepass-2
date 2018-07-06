@@ -7,18 +7,42 @@ namespace Zabrodin.SavePass.ViewModels
 {
     public class MessageBoxDialogViewModel : ConfirmationViewModel<MessageBoxDialogContext>
     {
-        public MessageBoxDialogViewModel()
+        private DelegateCommand yesCommand;
+        private DelegateCommand noCommand;
+        private DelegateCommand okCommand;
+
+        public DelegateCommand YesCommand
         {
+            get => yesCommand;
+            private set => SetProperty(ref yesCommand, value);
+        }
+
+        public DelegateCommand NoCommand
+        {
+            get => noCommand;
+            private set => SetProperty(ref noCommand, value);
+        }
+
+        public DelegateCommand OKCommand
+        {
+            get => okCommand;
+            private set => SetProperty(ref okCommand, value);
+        }
+
+        public override void Initialize(MessageBoxDialogContext param)
+        {
+            base.Initialize(param);
+
             YesCommand = new DelegateCommand(OnYesCommand);
             NoCommand = new DelegateCommand(OnNoCommand);
             OKCommand = new DelegateCommand(OnOKCommand);
         }
 
-        public DelegateCommand YesCommand { get; }
-
-        public DelegateCommand NoCommand { get; }
-
-        public DelegateCommand OKCommand { get; }
+        protected override void OnCancelCommand()
+        {
+            Parameter.Result = MessageBoxResult.Cancel;
+            Close();
+        }
 
         private void OnYesCommand()
         {
@@ -35,12 +59,6 @@ namespace Zabrodin.SavePass.ViewModels
         private void OnOKCommand()
         {
             Parameter.Result = MessageBoxResult.OK;
-            Close();
-        }
-
-        protected override void OnCancelCommand()
-        {
-            Parameter.Result = MessageBoxResult.Cancel;
             Close();
         }
     }

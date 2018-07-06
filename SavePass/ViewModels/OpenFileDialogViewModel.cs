@@ -13,11 +13,7 @@ namespace Zabrodin.SavePass.ViewModels
     {
         private string newFilePath;
         private string openFilePath;
-
-        public OpenFileDialogViewModel()
-        {
-            BrowseCommand = new DelegateCommand(OnBrowseCommand);
-        }
+        private DelegateCommand browseCommand;
 
         [Required(ErrorMessage = "Field is required")]
         public string NewFilePath
@@ -41,17 +37,21 @@ namespace Zabrodin.SavePass.ViewModels
             }
         }
 
-        public DelegateCommand BrowseCommand { get; }
+        public DelegateCommand BrowseCommand
+        {
+            get => browseCommand;
+            private set => SetProperty(ref browseCommand, value);
+        }
 
         public override void Initialize(OpenFileContext param)
         {
             base.Initialize(param);
 
             NewFilePath = OpenFilePath = Parameter.FilePath;
+            BrowseCommand = new DelegateCommand(OnBrowseCommand);
         }
 
-        protected override bool OnCanExecuteApplyCommand()
-            => (Parameter?.IsSave ?? false) || File.Exists(GetFilePath());
+        protected override bool OnCanExecuteApplyCommand() => Parameter.IsSave || File.Exists(GetFilePath());
 
         protected override void OnApplyCommand()
         {
@@ -75,14 +75,13 @@ namespace Zabrodin.SavePass.ViewModels
                     Filter = "SavePass file (*.savepass)|*.savepass|All (*.*)|*.*"
                 };
 
-            if (dialog.ShowDialog() == true)
-            {
-                NewFilePath = OpenFilePath = dialog.FileName;
-                ApplyCommand.RaiseCanExecuteChanged();
-            }
+            if (dialog.ShowDialog() != true)
+                return;
+
+            NewFilePath = OpenFilePath = dialog.FileName;
+            ApplyCommand.RaiseCanExecuteChanged();
         }
 
-        private string GetFilePath() => ((Parameter?.IsSave ?? false) ? NewFilePath : OpenFilePath)
-                                        ?? String.Empty;
+        private string GetFilePath() => (Parameter.IsSave ? NewFilePath : OpenFilePath) ?? String.Empty;
     }
 }

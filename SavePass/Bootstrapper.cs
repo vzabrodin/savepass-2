@@ -16,6 +16,7 @@ namespace Zabrodin.SavePass
             this.args = args;
         }
 
+        // ReSharper disable once PossibleNullReferenceException
         protected override void InitializeShell() => Application.Current.MainWindow.Show();
 
         protected override DependencyObject CreateShell() => Container.Resolve<Shell>();
