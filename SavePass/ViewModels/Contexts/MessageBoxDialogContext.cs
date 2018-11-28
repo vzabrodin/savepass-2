@@ -5,33 +5,28 @@ namespace Zabrodin.SavePass.ViewModels.Contexts
 {
     public class MessageBoxDialogContext : Confirmation
     {
-        private string message;
-        private MessageBoxButton buttons;
-        private MessageBoxImage image;
-        private MessageBoxResult result;
-
         public string Message
         {
-            get => message;
-            set => SetProperty(ref message, value);
+            get => GetProperty(() => Message);
+            set => SetProperty(() => Message, value);
         }
 
         public MessageBoxButton Buttons
         {
-            get => buttons;
-            set => SetProperty(ref buttons, value);
+            get => GetProperty(() => Buttons);
+            set => SetProperty(() => Buttons, value);
         }
 
         public MessageBoxImage Image
         {
-            get => image;
-            set => SetProperty(ref image, value);
+            get => GetProperty(() => Image);
+            set => SetProperty(() => Image, value);
         }
 
         public MessageBoxResult Result
         {
-            get => result;
-            set => SetProperty(ref result, value);
+            get => GetProperty(() => Result);
+            set => SetProperty(() => Result, value);
         }
     }
 }

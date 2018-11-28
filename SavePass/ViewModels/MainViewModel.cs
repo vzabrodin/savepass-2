@@ -6,24 +6,22 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using Prism.Commands;
-using Prism.Mvvm;
+using DevExpress.Mvvm;
+using DevExpress.Mvvm.DataAnnotations;
 using Zabrodin.SavePass.DialogService;
 using Zabrodin.SavePass.Extensions;
 using Zabrodin.SavePass.Models;
 using Zabrodin.SavePass.Properties;
 using Zabrodin.SavePass.ViewModels.Contexts;
+using IDialogService = Zabrodin.SavePass.DialogService.IDialogService;
 
 namespace Zabrodin.SavePass.ViewModels
 {
-    public class MainViewModel : BindableBase
+    public class MainViewModel : ViewModelBase
     {
         #region Private members
 
         private readonly IDialogService dialogService;
-        private SavePassRepository repository;
-        private SavePassItem selectedItem;
-        private ICollectionView items;
 
         #endregion
 
@@ -32,19 +30,6 @@ namespace Zabrodin.SavePass.ViewModels
         public MainViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
-            NewFileCommand = new DelegateCommand(OnNewFileCommand);
-            OpenFileCommand = new DelegateCommand(OnOpenFileCommand);
-            CloseFileCommand = new DelegateCommand(OnCloseFileCommand, OnCanCloseFileCommand);
-            SaveFileCommand = new DelegateCommand(OnSaveFileCommand, OnCanSaveFileCommand);
-            SaveFileAsCommand = new DelegateCommand(OnSaveFileAsCommand, OnCanSaveFileAsCommand);
-            FileSettingsCommand = new DelegateCommand(OnFileSettingsCommand, OnCanFileSettingsCommand);
-            AddItemCommand = new DelegateCommand(OnAddItemCommand, OnCanAddItemCommand);
-            EditItemCommand = new DelegateCommand(OnEditItemCommand, OnCanEditItemCommand);
-            RemoveItemCommand = new DelegateCommand(OnRemoveItemCommand, OnCanRemoveItemCommand);
-            ExitCommand = new DelegateCommand(OnExitCommand);
-            AboutCommand = new DelegateCommand(OnAboutCommand);
-            CopyToClipboardCommand = new DelegateCommand<string>(OnCopyToClipboardCommand);
-            OpenBrowserCommand = new DelegateCommand<string>(OnOpenBrowserCommand);
 
             // ReSharper disable once PossibleNullReferenceException
             Application.Current.MainWindow.Closing += OnShellClosing;
@@ -52,55 +37,24 @@ namespace Zabrodin.SavePass.ViewModels
 
         #endregion
 
-        #region DelegateCommands
-
-        public DelegateCommand NewFileCommand { get; }
-        public DelegateCommand OpenFileCommand { get; }
-        public DelegateCommand CloseFileCommand { get; }
-        public DelegateCommand SaveFileCommand { get; }
-        public DelegateCommand SaveFileAsCommand { get; }
-        public DelegateCommand FileSettingsCommand { get; }
-        public DelegateCommand AddItemCommand { get; }
-        public DelegateCommand EditItemCommand { get; }
-        public DelegateCommand RemoveItemCommand { get; }
-        public DelegateCommand ExitCommand { get; }
-        public DelegateCommand AboutCommand { get; }
-        public DelegateCommand<string> CopyToClipboardCommand { get; }
-        public DelegateCommand<string> OpenBrowserCommand { get; }
-
-        #endregion
-
         #region Properties
 
         public ICollectionView Items
         {
-            get => items;
-            set => SetProperty(ref items, value);
+            get => GetProperty(() => Items);
+            set => SetProperty(() => Items, value);
         }
 
         public SavePassRepository Repository
         {
-            get => repository;
-            private set
-            {
-                SetProperty(ref repository, value);
-                AddItemCommand.RaiseCanExecuteChanged();
-                SaveFileCommand.RaiseCanExecuteChanged();
-                SaveFileAsCommand.RaiseCanExecuteChanged();
-                CloseFileCommand.RaiseCanExecuteChanged();
-                FileSettingsCommand.RaiseCanExecuteChanged();
-            }
+            get => GetProperty(() => Repository);
+            private set => SetProperty(() => Repository, value);
         }
 
         public SavePassItem SelectedItem
         {
-            get => selectedItem;
-            set
-            {
-                SetProperty(ref selectedItem, value);
-                EditItemCommand.RaiseCanExecuteChanged();
-                RemoveItemCommand.RaiseCanExecuteChanged();
-            }
+            get => GetProperty(() => SelectedItem);
+            set => SetProperty(() => SelectedItem, value);
         }
 
         #endregion
@@ -109,7 +63,8 @@ namespace Zabrodin.SavePass.ViewModels
 
         #region File
 
-        private async void OnNewFileCommand()
+        [Command]
+        public async void NewFile()
         {
             if (await TrySave() == MessageBoxResult.Cancel)
                 return;
@@ -117,30 +72,35 @@ namespace Zabrodin.SavePass.ViewModels
             Repository = SavePassRepository.New();
             InitializeCollectionView();
         }
-
-        private async void OnOpenFileCommand()
+        
+        [Command]
+        public async void OpenFile()
         {
             if (await TrySave() == MessageBoxResult.Cancel)
                 return;
 
-            await OpenFile();
+            await OpenFileInternal();
         }
 
-        private bool OnCanCloseFileCommand() => Repository != null;
+        public bool CanCloseFile() => Repository != null;
 
-        private async void OnCloseFileCommand() => await TrySave();
+        [Command]
+        public async void CloseFile() => await TrySave();
 
-        private bool OnCanSaveFileCommand() => Repository != null;
+        public bool CanSaveFile() => Repository != null;
 
-        private async void OnSaveFileCommand() => await SaveFile();
+        [Command]
+        public async void SaveFile() => await SaveFileInternal();
 
-        private bool OnCanSaveFileAsCommand() => Repository != null;
+        public bool CanSaveFileAs() => Repository != null;
 
-        private async void OnSaveFileAsCommand() => await SaveFileAs();
+        [Command]
+        public async void SaveFileAsC() => await SaveFileAs();
 
-        private bool OnCanFileSettingsCommand() => !String.IsNullOrWhiteSpace(Repository?.FilePath);
+        public bool CanFileSettings() => !String.IsNullOrWhiteSpace(Repository?.FilePath);
 
-        private async void OnFileSettingsCommand()
+        [Command]
+        public async void FileSettings()
         {
             var context = await dialogService.Show(ViewNames.ChangePasswordDialogView,
                 new Confirmation<string> { Title = Captions.ChangePassword });
@@ -152,15 +112,17 @@ namespace Zabrodin.SavePass.ViewModels
         }
 
         // ReSharper disable once PossibleNullReferenceException
-        private void OnExitCommand() => Application.Current.MainWindow.Close();
+        [Command]
+        public void OnExitCommand() => Application.Current.MainWindow.Close();
 
         #endregion
 
         #region Edit
 
-        private bool OnCanAddItemCommand() => Repository != null;
+        public bool CanAddItem() => Repository != null;
 
-        private async void OnAddItemCommand()
+        [Command]
+        public async void AddItem()
         {
             var context = await dialogService.Show(ViewNames.EditEntityDialogView,
                 new Confirmation<SavePassItem>(new SavePassItem()) { Title = Captions.AddEntry });
@@ -172,17 +134,19 @@ namespace Zabrodin.SavePass.ViewModels
             SelectedItem = context.Value;
         }
 
-        private bool OnCanEditItemCommand() => SelectedItem != null && Repository != null;
+        public bool CanEditItem() => SelectedItem != null && Repository != null;
 
-        private async void OnEditItemCommand()
+        [Command]
+        public async void EditItem()
         {
             await dialogService.Show(ViewNames.EditEntityDialogView,
                 new Confirmation<SavePassItem>(SelectedItem) { Title = Captions.EditEntry });
         }
 
-        private bool OnCanRemoveItemCommand() => SelectedItem != null && Repository != null;
+        public bool CanRemoveItem() => SelectedItem != null && Repository != null;
 
-        private async void OnRemoveItemCommand()
+        [Command]
+        public async void RemoveItem()
         {
             MessageBoxResult result = await dialogService.ShowMessageBox(
                 Messages.DoYouWantToRemoveSelectedEntry,
@@ -201,13 +165,15 @@ namespace Zabrodin.SavePass.ViewModels
 
         #region About
 
-        private async void OnAboutCommand() => await dialogService.ShowMessageBox(
+        [Command]
+        public async void About() => await dialogService.ShowMessageBox(
             String.Format(Messages.AboutProgram_Name_Author_Version, Captions.ProgramName, "Doge", "2.0.14.88"),
             Captions.AboutProgram);
 
         #endregion
 
-        private void OnCopyToClipboardCommand(string value)
+        [Command]
+        public void CopyToClipboard(string value)
         {
             try
             {
@@ -220,7 +186,8 @@ namespace Zabrodin.SavePass.ViewModels
             }
         }
 
-        private void OnOpenBrowserCommand(string value)
+        [Command]
+        public void OpenBrowser(string value)
         {
             try
             {
@@ -237,7 +204,7 @@ namespace Zabrodin.SavePass.ViewModels
 
         #region Private methods
 
-        private async Task OpenFile(OpenFileContext context = null)
+        private async Task OpenFileInternal(OpenFileContext context = null)
         {
             context = await dialogService.Show(ViewNames.OpenFileDialogView,
                 context ?? new OpenFileContext
@@ -260,7 +227,7 @@ namespace Zabrodin.SavePass.ViewModels
 
                 await dialogService.ShowMessageBox(ex.Message, Captions.Error,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
-                await OpenFile(context);
+                await OpenFileInternal(context);
             }
             catch (CryptographicException)
             {
@@ -269,11 +236,11 @@ namespace Zabrodin.SavePass.ViewModels
 
                 await dialogService.ShowMessageBox(Captions.WrongPassword, Captions.Error,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
-                await OpenFile(context);
+                await OpenFileInternal(context);
             }
         }
 
-        private async Task<bool> SaveFile()
+        private async Task<bool> SaveFileInternal()
         {
             if (String.IsNullOrWhiteSpace(Repository.FilePath))
                 return await SaveFileAs();
@@ -321,7 +288,7 @@ namespace Zabrodin.SavePass.ViewModels
             switch (result)
             {
                 case MessageBoxResult.Yes:
-                    if (!await SaveFile())
+                    if (!await SaveFileInternal())
                         return MessageBoxResult.Cancel;
                     Repository = null;
                     Items = null;

@@ -4,26 +4,21 @@ namespace Zabrodin.SavePass.DialogService
 {
     public class Confirmation : ValidationBase
     {
-        private bool confirmed;
-        private string title;
-
         public bool Confirmed
         {
-            get => confirmed;
-            set => SetProperty(ref confirmed, value);
+            get => GetProperty(() => Confirmed);
+            set => SetProperty(() => Confirmed, value);
         }
 
         public string Title
         {
-            get => title;
-            set => SetProperty(ref title, value);
+            get => GetProperty(() => Title);
+            set => SetProperty(() => Title, value);
         }
     }
 
     public class Confirmation<T> : Confirmation
     {
-        private T value;
-
         public Confirmation()
         {
         }
@@ -35,8 +30,8 @@ namespace Zabrodin.SavePass.DialogService
 
         public T Value
         {
-            get => value;
-            set => SetProperty(ref this.value, value);
+            get => GetProperty(() => Value);
+            set => SetProperty(() => Value, value);
         }
     }
 }

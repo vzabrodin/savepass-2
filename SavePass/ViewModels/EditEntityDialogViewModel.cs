@@ -7,52 +7,41 @@ namespace Zabrodin.SavePass.ViewModels
 {
     public class EditEntityDialogViewModel : ConfirmationViewModel<Confirmation<SavePassItem>>
     {
-        private string name;
-        private string userName;
-        private string password;
-        private string email;
-        private string webSite;
-        private string notes;
-
         [Required(ErrorMessage = "Field is required")]
         public string Name
         {
-            get => name;
-            set
-            {
-                SetProperty(ref name, value);
-                ApplyCommand.RaiseCanExecuteChanged();
-            }
+            get => GetProperty(() => Name);
+            set => SetProperty(() => Name, value);
         }
 
         public string UserName
         {
-            get => userName;
-            set => SetProperty(ref userName, value);
+            get => GetProperty(() => UserName);
+            set => SetProperty(() => UserName, value);
         }
 
         public string Password
         {
-            get => password;
-            set => SetProperty(ref password, value);
+            get => GetProperty(() => Password);
+            set => SetProperty(() => Password, value);
         }
 
         public string Email
         {
-            get => email;
-            set => SetProperty(ref email, value);
+            get => GetProperty(() => Email);
+            set => SetProperty(() => Email, value);
         }
 
         public string WebSite
         {
-            get => webSite;
-            set => SetProperty(ref webSite, value);
+            get => GetProperty(() => WebSite);
+            set => SetProperty(() => WebSite, value);
         }
 
         public string Notes
         {
-            get => notes;
-            set => SetProperty(ref notes, value);
+            get => GetProperty(() => Notes);
+            set => SetProperty(() => Notes, value);
         }
 
         public override void Initialize(Confirmation<SavePassItem> param)

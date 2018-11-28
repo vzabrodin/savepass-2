@@ -5,29 +5,21 @@ namespace Zabrodin.SavePass.ViewModels
 {
     public class ChangePasswordDialogViewModel : ConfirmationViewModel<Confirmation<string>>
     {
-        private string newPassword;
-        private string repeatPassword;
-
         public string NewPassword
         {
-            get => newPassword;
+            get => GetProperty(() => NewPassword);
             set
             {
-                SetProperty(ref newPassword, value);
-                RaisePropertyChanged(nameof(RepeatPassword));
-                ApplyCommand.RaiseCanExecuteChanged();
+                SetProperty(() => NewPassword, value);
+                RaisePropertyChanged(() => RepeatPassword);
             }
         }
 
         [Compare(nameof(NewPassword), ErrorMessage = "Passwords do not match")]
         public string RepeatPassword
         {
-            get => repeatPassword;
-            set
-            {
-                SetProperty(ref repeatPassword, value);
-                ApplyCommand.RaiseCanExecuteChanged();
-            }
+            get => GetProperty(() => RepeatPassword);
+            set => SetProperty(() => RepeatPassword, value);
         }
 
         protected override void OnApplyCommand()

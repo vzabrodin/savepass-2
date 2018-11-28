@@ -11,36 +11,24 @@ namespace Zabrodin.SavePass.ViewModels
 {
     public class OpenFileDialogViewModel : ConfirmationViewModel<OpenFileContext>
     {
-        private string newFilePath;
-        private string openFilePath;
-        private DelegateCommand browseCommand;
-
         [Required(ErrorMessage = "Field is required")]
         public string NewFilePath
         {
-            get => newFilePath;
-            set
-            {
-                SetProperty(ref newFilePath, value);
-                ApplyCommand.RaiseCanExecuteChanged();
-            }
+            get => GetProperty(() => NewFilePath);
+            set => SetProperty(() => NewFilePath, value);
         }
 
         [FileExistsValidation(ErrorMessage = "File is not exists")]
         public string OpenFilePath
         {
-            get => openFilePath;
-            set
-            {
-                SetProperty(ref openFilePath, value);
-                ApplyCommand.RaiseCanExecuteChanged();
-            }
+            get => GetProperty(() => OpenFilePath);
+            set => SetProperty(() => OpenFilePath, value);
         }
 
         public DelegateCommand BrowseCommand
         {
-            get => browseCommand;
-            private set => SetProperty(ref browseCommand, value);
+            get => GetProperty(() => BrowseCommand);
+            private set => SetProperty(() => BrowseCommand, value);
         }
 
         public override void Initialize(OpenFileContext param)

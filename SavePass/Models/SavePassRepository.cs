@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using Prism.Mvvm;
+using DevExpress.Mvvm;
 using Zabrodin.SavePass.Extensions;
 using Zabrodin.SavePass.Security;
 
@@ -14,8 +14,6 @@ namespace Zabrodin.SavePass.Models
     {
         private AESWrapper aes;
         private readonly ObservableCollection<SavePassItem> items;
-        private bool hasChanges;
-        private string filePath;
 
         private SavePassRepository()
         {
@@ -43,14 +41,14 @@ namespace Zabrodin.SavePass.Models
 
         public bool HasChanges
         {
-            get => hasChanges;
-            private set => SetProperty(ref hasChanges, value);
+            get => GetProperty(() => HasChanges);
+            private set => SetProperty(() => HasChanges, value);
         }
 
         public string FilePath
         {
-            get => filePath;
-            private set => SetProperty(ref filePath, value);
+            get => GetProperty(() => FilePath);
+            private set => SetProperty(() => FilePath, value);
         }
 
         public ReadOnlyObservableCollection<SavePassItem> Items { get; }

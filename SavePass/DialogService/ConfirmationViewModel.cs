@@ -7,26 +7,22 @@ namespace Zabrodin.SavePass.DialogService
     public abstract class ConfirmationViewModel<T> : ValidationBase
         where T : Confirmation
     {
-        private T parameter;
-        private DelegateCommand cancelCommand;
-        private DelegateCommand applyCommand;
-
         public DelegateCommand ApplyCommand
         {
-            get => applyCommand;
-            protected set => SetProperty(ref applyCommand, value);
+            get => GetProperty(() => ApplyCommand);
+            protected set => SetProperty(() => ApplyCommand, value);
         }
 
         public DelegateCommand CancelCommand
         {
-            get => cancelCommand;
-            protected set => SetProperty(ref cancelCommand, value);
+            get => GetProperty(() => CancelCommand);
+            protected set => SetProperty(() => CancelCommand, value);
         }
 
         public T Parameter
         {
-            get => parameter;
-            set => SetProperty(ref parameter, value);
+            get => GetProperty(() => Parameter);
+            set => SetProperty(() => Parameter, value);
         }
 
         public virtual void Initialize(T param)

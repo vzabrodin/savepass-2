@@ -4,33 +4,28 @@ namespace Zabrodin.SavePass.ViewModels.Contexts
 {
     public class OpenFileContext : Confirmation
     {
-        private string filePath;
-        private string password;
-        private bool isSave;
-        private bool showPassword;
-
         public string FilePath
         {
-            get => filePath;
-            set => SetProperty(ref filePath, value);
+            get => GetProperty(() => FilePath);
+            set => SetProperty(() => FilePath, value);
         }
 
         public string Password
         {
-            get => password;
-            set => SetProperty(ref password, value);
+            get => GetProperty(() => Password);
+            set => SetProperty(() => Password, value);
         }
 
         public bool IsSave
         {
-            get => isSave;
-            set => SetProperty(ref isSave, value);
+            get => GetProperty(() => IsSave);
+            set => SetProperty(() => IsSave, value);
         }
 
         public bool ShowPassword
         {
-            get => showPassword;
-            set => SetProperty(ref showPassword, value);
+            get => GetProperty(() => ShowPassword);
+            set => SetProperty(() => ShowPassword, value);
         }
     }
 }
